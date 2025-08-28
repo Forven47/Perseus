@@ -62,8 +62,9 @@ echo "Decompile Azur Lane apk"
 #java -jar apktool.jar -q -f d com.bilibili.AzurLane.apk
 java -jar apktool.jar d -f com.bilibili.AzurLane.apk
 
-echo "Copy JMBQ libs"
-cp -r Perseus/. com.bilibili.AzurLane/lib/
+echo "Copy libs"
+#cp -r Perseus/. com.bilibili.AzurLane/lib/
+cp -r azurlane/. com.bilibili.AzurLane/lib/
 
 : <<FF
 echo "Patching Azur Lane with Perseus"
