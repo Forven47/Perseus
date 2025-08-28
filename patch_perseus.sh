@@ -82,5 +82,5 @@ echo "Build Patched Azur Lane apk"
 java -jar apktool.jar b -f com.bilibili.AzurLane -o build/com.bilibili.AzurLane.patched.apk
 
 echo "Set Github Release version"
-s=($(./apkeep -a com.bilibili.AzurLane -l))
+s=($(./apkeep -a com.bilibili.AzurLane -l .))
 echo "PERSEUS_VERSION=$(echo ${s[-1]})" >> $GITHUB_ENV
