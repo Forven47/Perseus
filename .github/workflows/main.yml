@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
@@ -23,6 +25,12 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y android-sdk
+          echo "$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
 
       - name: Build Perseus APK
         run: ./patch_perseus.sh
