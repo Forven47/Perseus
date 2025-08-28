@@ -6,37 +6,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Java JDK
         uses: actions/setup-java@v3.3.0
         with:
           java-version: "17"
           distribution: "adopt"
-      
-      - name: Setup Android NDK
-        uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r26b
 
-      - name: Setup Android SDK
+      - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android SDK
+      - name: Install build-tools
         run: |
-          sudo apt-get install -y android-sdk
-          echo "$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
+          yes | sdkmanager --install "build-tools;32.0.0"
 
       - name: Build Perseus APK
         run: ./patch_perseus.sh
 
       - name: Zipalign and Sign Android release
         run: ./zipalign_sign.sh
-                    
+
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
