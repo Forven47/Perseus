@@ -21,6 +21,9 @@ jobs:
         with:
           ndk-version: r26b
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Build Perseus APK
         run: ./patch_perseus.sh
 
